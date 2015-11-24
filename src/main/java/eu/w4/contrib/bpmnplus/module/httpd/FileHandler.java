@@ -60,7 +60,11 @@ class FileHandler implements HttpAsyncRequestHandler<HttpRequest>
       throw new MethodNotSupportedException(method + " method not supported");
     }
 
-    final String target = request.getRequestLine().getUri();
+    String target = request.getRequestLine().getUri();
+    if (target.indexOf('?') >= 0)
+    {
+      target = target.substring(0, target.indexOf('?'));
+    }
     final File file = new File(this._root, URLDecoder.decode(target, "UTF-8"));
     if (!file.exists())
     {
