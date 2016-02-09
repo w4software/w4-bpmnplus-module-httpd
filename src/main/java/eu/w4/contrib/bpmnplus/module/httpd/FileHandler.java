@@ -25,11 +25,13 @@ class FileHandler implements HttpAsyncRequestHandler<HttpRequest>
 
   private static final String[] INDEXES = { "index.htm", "index.html", "default.htm", "default.html" };
   private final File _root;
+  private final MimeTypeRegistry _mimeTypeRegistry;
 
   public FileHandler(final File docRoot)
   {
     super();
     this._root = docRoot;
+    this._mimeTypeRegistry = new MimeTypeRegistry();
   }
 
   public HttpAsyncRequestConsumer<HttpRequest> processRequest(final HttpRequest request,
@@ -107,7 +109,7 @@ class FileHandler implements HttpAsyncRequestHandler<HttpRequest>
                      final File file)
   {
     response.setStatusCode(HttpStatus.SC_OK);
-    final String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+    final String mimeType = _mimeTypeRegistry.guessMimeType(file);
     final ContentType contentType = ContentType.create(mimeType);
     final NFileEntity body = new NFileEntity(file,
                                              contentType);
