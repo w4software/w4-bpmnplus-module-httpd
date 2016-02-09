@@ -44,7 +44,7 @@ When deployed, the module is started automatically by W4 BPMN+ Engine during its
 License
 -------
 
-Copyright (c) 2015, W4 Software
+Copyright (c) 2015-2016, W4 Software
 
 This project is licensed under the terms of the MIT License (see LICENSE file)
 
